@@ -8,7 +8,7 @@ class App extends React.Component {
   handleWrozba =()=>{
     const los = Math.floor(Math.random()*this.state.options.length);
     this.setState({
-      option: this.state.options[los]
+      option: this.state.options[los] 
     })
   }
 
