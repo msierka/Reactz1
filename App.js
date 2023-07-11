@@ -1,29 +1,48 @@
-class App extends React.Component {
+class Draw extends React.Component {
+
   state = {
-    options: ["1","2","3"],
+    options: ["1", "2", "3"],
     option: null,
-    
+    value: "",
   }
 
-  handleWrozba =()=>{
-    const los = Math.floor(Math.random()*this.state.options.length);
+  handleShowOption = () => {
+    const index = Math.floor(Math.random() * this.state.options.length);
     this.setState({
-      option: this.state.options[los] 
+      option: this.state.options[index]
     })
   }
 
+  handleInputChange = e => {
+    this.setState({
+      value: e.target.value,
+    })
+  }
+
+  handleAddOption = () => {
+    if (this.state.value === "") return alert('wpisz coś!')
+    // const options = [...this.state.options]
+    // options.push(this.state.value)
+    const options = this.state.options.concat(this.state.value);
+    this.setState({
+      options,
+      value: '',
+    })
+    alert(`Wróżba dodana. Aktualne wróżby: ${options}`)
+
+  }
+
   render() {
-    return ( 
+    return (
       <div>
-        <button onClick={this.handleWrozba}>Zobacz wróżbę</button>
-        <br></br>
-        <input></input>
-        <button>Dodaj wróżbę</button>
+        <button onClick={this.handleShowOption}>Zobacz wróżbę</button>
+        <br />
+        <input type="text" value={this.state.value} onChange={this.handleInputChange} />
+        <button onClick={this.handleAddOption}>Dodaj wróżbę</button>
         {this.state.option ? <h1>{this.state.option}</h1> : null}
       </div>
-    );
+    )
   }
 }
 
-
-ReactDOM.render( < App / > , document.getElementById('root'))
+ReactDOM.render(<Draw />, document.getElementById('root'))
